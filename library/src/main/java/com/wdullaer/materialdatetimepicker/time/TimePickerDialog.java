@@ -736,21 +736,32 @@ public class TimePickerDialog extends DialogFragment implements
         setCurrentItemShowing(currentItemShowing, false, true, true);
         mTimePicker.invalidate();
 
-        mHourView.setOnClickListener(v -> {
+        mHourView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
             setCurrentItemShowing(HOUR_INDEX, true, false, true);
             tryVibrate();
+            }
         });
-        mMinuteView.setOnClickListener(v -> {
+        mMinuteView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
             setCurrentItemShowing(MINUTE_INDEX, true, false, true);
             tryVibrate();
+            }
         });
-        mSecondView.setOnClickListener(view1 -> {
+        mSecondView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
             setCurrentItemShowing(SECOND_INDEX, true, false, true);
             tryVibrate();
+            }
         });
 
         mOkButton = view.findViewById(R.id.mdtp_ok);
-        mOkButton.setOnClickListener(v -> {
+        mOkButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
             if (mInKbMode && isTypedTimeFullyLegal()) {
                 finishKbMode(false);
             } else {
@@ -758,6 +769,7 @@ public class TimePickerDialog extends DialogFragment implements
             }
             notifyOnDateListener();
             dismiss();
+            }
         });
         mOkButton.setOnKeyListener(keyboardListener);
         mOkButton.setTypeface(ResourcesCompat.getFont(context, R.font.robotomedium));
@@ -765,9 +777,12 @@ public class TimePickerDialog extends DialogFragment implements
         else mOkButton.setText(mOkResid);
 
         mCancelButton = view.findViewById(R.id.mdtp_cancel);
-        mCancelButton.setOnClickListener(v -> {
+        mCancelButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
             tryVibrate();
             if (getDialog() != null) getDialog().cancel();
+            }
         });
         mCancelButton.setTypeface(ResourcesCompat.getFont(context, R.font.robotomedium));
         if(mCancelString != null) mCancelButton.setText(mCancelString);
@@ -778,7 +793,9 @@ public class TimePickerDialog extends DialogFragment implements
         if (mIs24HourMode) {
             mAmPmLayout.setVisibility(View.GONE);
         } else {
-            OnClickListener listener = v -> {
+            OnClickListener listener = new OnClickListener() {
+                @Override
+                public void onClick(View v) {
                 // Don't do anything if either AM or PM are disabled
                 if (isAmDisabled() || isPmDisabled()) return;
 
@@ -790,6 +807,7 @@ public class TimePickerDialog extends DialogFragment implements
                     amOrPm = AM;
                 }
                 mTimePicker.setAmOrPm(amOrPm);
+                }
             };
             mAmTextView .setVisibility(View.GONE);
             mPmTextView.setVisibility(View.VISIBLE);

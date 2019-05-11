@@ -22,20 +22,20 @@ import androidx.annotation.NonNull;
 import java.util.Calendar;
 
 @SuppressWarnings("WeakerAccess")
-public interface DateRangeLimiter extends Parcelable {
-    default int getMinYear() {
+public abstract class DateRangeLimiter implements Parcelable {
+    int getMinYear() {
         return getStartDate().get(Calendar.YEAR);
     }
 
-    default int getMaxYear() {
+    int getMaxYear() {
         return getEndDate().get(Calendar.YEAR);
     }
 
-    @NonNull Calendar getStartDate();
+    @NonNull abstract Calendar getStartDate();
 
-    @NonNull Calendar getEndDate();
+    @NonNull abstract Calendar getEndDate();
 
-    boolean isOutOfRange(int year, int month, int day);
+    abstract boolean isOutOfRange(int year, int month, int day);
 
-    @NonNull Calendar setToNearestDate(@NonNull Calendar day);
+    @NonNull abstract Calendar setToNearestDate(@NonNull Calendar day);
 }

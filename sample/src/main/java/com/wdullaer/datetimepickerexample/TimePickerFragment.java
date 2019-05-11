@@ -1,5 +1,6 @@
 package com.wdullaer.datetimepickerexample;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.Timepoint;
@@ -58,19 +60,29 @@ public class TimePickerFragment extends Fragment implements TimePickerDialog.OnT
         disableSpecificTimes = view.findViewById(R.id.disable_times);
         showVersion2 = view.findViewById(R.id.show_version_2);
 
-        view.findViewById(R.id.original_button).setOnClickListener(view1 -> {
+        view.findViewById(R.id.original_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
             Calendar now = Calendar.getInstance();
             new android.app.TimePickerDialog(
                     getActivity(),
-                    (view11, hour, minute) -> Log.d("Original", "Got clicked"),
+                    new android.app.TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                Log.d("Original", "Got clicked");
+                            }
+                    },
                     now.get(Calendar.HOUR_OF_DAY),
                     now.get(Calendar.MINUTE),
                     mode24Hours.isChecked()
             ).show();
+            }
         });
 
         // Show a timepicker when the timeButton is clicked
-        timeButton.setOnClickListener(v -> {
+        timeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
             Calendar now = Calendar.getInstance();
             /*
             It is recommended to always create a new instance whenever you need to show a Dialog.
@@ -120,8 +132,14 @@ public class TimePickerFragment extends Fragment implements TimePickerDialog.OnT
                 };
                 tpd.setDisabledTimes(disabledTimes);
             }
-            tpd.setOnCancelListener(dialogInterface -> Log.d("TimePicker", "Dialog was cancelled"));
+            tpd.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        Log.d("TimePicker", "Dialog was cancelled");
+                    }
+            });
             tpd.show(requireFragmentManager(), "Timepickerdialog");
+            }
         });
 
         return view;
