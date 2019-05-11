@@ -2,8 +2,17 @@
 
 [![Join the chat at https://gitter.im/wdullaer/MaterialDateTimePicker](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/wdullaer/MaterialDateTimePicker?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 ![Maven Central](https://img.shields.io/maven-central/v/com.wdullaer/materialdatetimepicker.svg)
-![Build Status](https://travis-ci.org/wdullaer/MaterialDateTimePicker.svg?branch=master)
+![Build Status](https://travis-ci.org/DIG-/MaterialDateTimePicker.svg?branch=master)
 
+
+# This is Java 7 version
+This is a Java 7 version of MaterialDateTimePicker.
+
+Since Android VM does not have support to Java 8 features, the Java 8 code will be transpiled into Java 7 compatible before dex process.
+
+That is why there is no performance using Java 8 code for Android. Use kotlin instead of Java 8 for Android.
+
+---
 
 Material DateTime Picker tries to offer you the date and time pickers as shown in [the Material Design spec](http://www.google.com/design/spec/components/pickers.html), with an
 easy themable API.
@@ -48,18 +57,16 @@ dependencies {
 
 You may also add the library as an Android Library to your project. All the library files live in ```library```.
 
-The library also uses some Java 8 features, which Android Studio will need to transpile. This requires the following stanza in your app's `build.gradle`.
-See https://developer.android.com/studio/write/java8-support.html for more information on Java 8 support in Android.
+~~The library also uses some Java 8 features, which Android Studio will need to transpile. This requires the following stanza in your app's `build.gradle`.
+See https://developer.android.com/studio/write/java8-support.html for more information on Java 8 support in Android.~~
 ```groovy
 android {
   ...
-  // Configure only for each module that uses Java 8
-  // language features (either in its source code or
-  // through dependencies).
-  compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
-  }
+  // There is no need for this in this library
+  // compileOptions {
+  //  sourceCompatibility JavaVersion.VERSION_1_8
+  //  targetCompatibility JavaVersion.VERSION_1_8
+  // }
 }
 ```
 
